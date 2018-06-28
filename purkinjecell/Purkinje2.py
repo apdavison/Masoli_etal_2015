@@ -69,10 +69,10 @@ axonmyelin3 = Segment(proximal=P(x=229, y=0, z=0, diameter=0.73),
                    distal=P(x=329, y=0, z=0, diameter=0.73),
                    name='axonmyelin3', parent=axonNOR2)
 axonNOR3 = Segment(proximal=P(x=329, y=0, z=0, diameter=0.73),
-                   distal=P(x=331, y=0, z=0, diameter=0.97),
+                   distal=P(x=333, y=0, z=0, diameter=0.73),
                    name='axonNOR3', parent=axonmyelin3)
-axonmyelin4 = Segment(proximal=P(x=331, y=0, z=0, diameter=0.73),
-                   distal=P(x=431, y=0, z=0, diameter=0.73),
+axonmyelin4 = Segment(proximal=P(x=333, y=0, z=0, diameter=0.73),
+                   distal=P(x=433, y=0, z=0, diameter=0.73),
                    name='axonmyelin4', parent=axonNOR3)
 axoncoll1 = Segment(proximal=P(x=229, y=0, z=0, diameter=0.60),
                    distal=P(x=229, y=0, z=100, diameter=0.60),
@@ -131,13 +131,13 @@ purkinje_cell = Purkinje(
         "h": IonicSpecies("h", reversal_potential=-34.4),
         "na": IonicSpecies("na", reversal_potential=uniform(with_label("axonAIS"), 75, absence=60)),
         "k": IonicSpecies("k", reversal_potential=-88),
-        "ca": IonicSpecies("ca", reversal_potential=137.52625,
+        "ca": IonicSpecies("ca", 
+                           reversal_potential=uniform(
+                               with_label("soma", "dend", "axonAIS", "axonAISK", "axoncoll", "axoncoll2"),
+                               137.52625, absence=None),
                            internal_concentration= 5e-5, external_concentration=2.0)
     },
     **ion_channel_parameters
 )
 
 population = sim.Population(1, purkinje_cell)
-
-
-

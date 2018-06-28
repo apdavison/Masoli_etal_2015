@@ -3,8 +3,7 @@ Check the ion channel distributions in the PyNN version of the model
 by comparing them to those in the ModelDB version
 """
 
-import sys
-sys.path.append('../purkinjecell')
+
 from Purkinje import Purkinje
 from Purkinje2 import population
 
@@ -138,6 +137,17 @@ for dend1, dend2_index in zip(purkinje1.dend, purkinje2.morphology.section_group
     if diff != ({}, {}):
         diffs.append(diff)
 
-# todo: axon
+# axon
+for name in ("axonAIS", "axonAISK", "axonNOR", "axonNOR2", "axonNOR3", "axonmyelin",
+             "axonmyelin2", "axonmyelin3", "axonmyelin4", "axoncoll", "axoncoll2"):
+    axon1 = getattr(purkinje1, name)
+    axon2 = purkinje2.section_labels[name]
+
+    properties_orig = get_section_properties(axon1)
+    properties_new = get_section_properties(axon2)
+
+    diff = P(properties_new) - P(properties_orig)
+    if diff != ({}, {}):
+        diffs.append(diff)
 
 assert len(diffs) == 0
